@@ -8,7 +8,7 @@
 ```
 cp .env.example .env
 ```
-- Создать [приложение](https://vk.com/editapp?act=create) ВКонтакте. (тип приложения - **standalone**)
+- Создать [приложение](https://vk.com/editapp?act=create) ВКонтакте (тип приложения - **standalone**)
 - Из настроек приложения ВК скопировать **ID приложения** и добавить в `.env`:
 ```
 APP_ID=123456
@@ -38,7 +38,7 @@ Users online:
 Петр Петров
 Андрей Андреев
 
-# если введены неправиные логин/пароль/app_id выведет сообщение об ошибке
+# если введены неправильные логин/пароль/app_id выведет сообщение об ошибке
 Failed to connect to VK. Make sure you have entered the correct login/password.
 ```
 
