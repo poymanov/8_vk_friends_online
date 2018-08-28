@@ -1,13 +1,15 @@
 import vk
 import sys
 import os
+import argparse
 from getpass import getpass
-from dotenv import load_dotenv
 
 
-def get_api_credentials():
-    load_dotenv(os.path.join(os.path.dirname(__name__), '.env'))
-    return {'app_id': os.getenv('APP_ID'), 'version': os.getenv('VERSION')}
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('app_id', help='VK APP ID')
+    parser.add_argument('--api_version', help='VK API Version', default='5.80')
+    return parser.parse_args()
 
 
 def get_user_login():
@@ -20,17 +22,15 @@ def get_user_password():
     return password
 
 
-def get_api_session(login, password):
-    api_credentials = get_api_credentials()
-
+def get_api_session(login, password, app_id, api_version):
     try:
         session = vk.AuthSession(
-            app_id=api_credentials['app_id'],
+            app_id=app_id,
             user_login=login,
             user_password=password,
             scope='friends'
         )
-        return vk.API(session, version=api_credentials['version'])
+        return vk.API(session, version=api_version)
     except vk.exceptions.VkAuthError:
         return None
 
@@ -47,15 +47,17 @@ def output_friends_to_console(friends_online):
 
 
 if __name__ == '__main__':
+    args = parse_args()
+
     login = get_user_login()
     password = get_user_password()
 
-    api_session = get_api_session(login, password)
+    api_session = get_api_session(login, password,
+                                  args.app_id, args.api_version)
 
     if not api_session:
-        message = 'Failed to connect to VK. '
-        message += 'Make sure you have entered the correct login/password.'
-        sys.exit(message)
+        sys.exit(('Failed to connect to VK. '
+                  'Make sure you have entered the correct login/password.'))
 
     friends_online = get_online_friends(api_session)
 

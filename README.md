@@ -4,15 +4,8 @@
 
 # Предварительные настройки
 
-- Создать конфигурационный файл приложения `.env`:
-```
-cp .env.example .env
-```
 - Создать [приложение](https://vk.com/editapp?act=create) ВКонтакте (тип приложения - **standalone**)
-- Из настроек приложения ВК скопировать **ID приложения** и добавить в `.env`:
-```
-APP_ID=123456
-```
+- Cкопировать **ID приложения** из настроек приложения ВК
 - Установить и запустить [virtualenv/venv](https://devman.org/encyclopedia/pip/pip_virtualenv/) для Python
 - Установить дополнительные пакеты:
 ```
@@ -26,7 +19,11 @@ pip install -r requirements.txt
 **Запуск на Linux**
 
 ```bash
-$ python vk_friends_online # или python3, в зависимости от настроек системы
+# в качестве аргумента указать ID приложения ВКонтакте
+$ python vk_friends_online.py <app_id> # или python3, в зависимости от настроек системы
+
+# если необходимо использовать определенную версию API ВКонтакте
+$ python vk_friends_online.py <app_id> --api_version 3.0
 
 # скрипт запросит логин/пароль VK для авторизации
 Enter your VK login:
