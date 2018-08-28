@@ -53,8 +53,9 @@ if __name__ == '__main__':
     api_session = get_api_session(login, password)
 
     if not api_session:
-        sys.exit('Failed to connect to VK. ' +
-                 'Make sure you have entered the correct login/password.')
+        message = 'Failed to connect to VK. '
+        message += 'Make sure you have entered the correct login/password.'
+        sys.exit(message)
 
     friends_online = get_online_friends(api_session)
 
